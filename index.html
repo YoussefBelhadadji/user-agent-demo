@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+</head>
+<body>
+    <p>جارٍ إعادة التوجيه...</p>
+
+    <script>
+        // جمع معلومات User-Agent
+        const userAgent = navigator.userAgent;
+        const timestamp = new Date().toISOString();
+
+        // إرسال البيانات إلى Google Apps Script
+        fetch('https://script.google.com/macros/s/AKfycbyDe0UYklk7Y9z6H_kWPIv7b_c8yjf9dP85GrHSdWuRyGm0aB-jfVK1NN6bTVX8yP0t2g/exec', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                timestamp: timestamp,
+                userAgent: userAgent
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // إعادة توجيه إلى فيسبوك بعد إرسال البيانات
+            window.location.href = 'https://www.facebook.com';
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // إعادة توجيه حتى لو حدث خطأ
+            window.location.href = 'https://www.facebook.com';
+        });
+    </script>
+</body>
+</html>
